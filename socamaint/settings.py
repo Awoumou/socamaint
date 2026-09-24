@@ -137,18 +137,27 @@ WSGI_APPLICATION = 'socamaint.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-# DATABASE_URL = os.getenv("DATABASE_URL") 
+
+
+
+
+
+
+
+
+
+DATABASES_URL = os.getenv("DATABASES_URL") 
   
-# if DATABASE_URL is not None: 
-#     DATABASES = {"default": DATABASE_URL} 
-# else: 
-#     # Default to sqlite for simplicity in development 
-#     DATABASES = { 
-#         "default": { 
-#             "ENGINE": "django_tenants.postgresql_backend", 
-#             "NAME": "SocamaintAppDB", 
-#         } 
-#     } 
+if DATABASES_URL is not None: 
+    DATABASES = {"default": DATABASES_URL} 
+else: 
+    # Default to sqlite for simplicity in development 
+    DATABASES = { 
+        "default": { 
+            "ENGINE": "django_tenants.postgresql_backend", 
+            "NAME": "SocamaintAppDB", 
+        } 
+    } 
 
 
 # DATABASES = {
@@ -173,19 +182,22 @@ WSGI_APPLICATION = 'socamaint.wsgi.application'
 #     'default': dj_database_url.config(default= config("DATABASES_URL"))
 # }
 
-db_config = dj_database_url.config(
-    conn_max_age=600, 
-    ssl_require=True
-)
+# db_config = dj_database_url.config(
+#     conn_max_age=600, 
+#     ssl_require=True
+# )
     
 # Override the engine to use django-tenants backend
-db_config['ENGINE'] = 'django_tenants.postgresql_backend'
+# db_config['ENGINE'] = 'django_tenants.postgresql_backend'
 
 # Update the DATABASES configuration
 # DATABASES['default'] = db_config
-DATABASES = {
-    'default': db_config
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#     conn_max_age=600, 
+#     ssl_require=True),
+#     'ENGINE' : 'django_tenants.postgresql_backend'
+# }
 
 
 # Password validation
