@@ -137,49 +137,49 @@ WSGI_APPLICATION = 'socamaint.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {}
-DATABASE_ENGINE = 'django_tenants.postgresql_backend'
+# DATABASES = {}
+# DATABASE_ENGINE = 'django_tenants.postgresql_backend'
 
-db_config = dj_database_url.config(
-        conn_max_age=600, 
-        ssl_require=True
-    )
+# db_config = dj_database_url.config(
+#         conn_max_age=600, 
+#         ssl_require=True
+#     )
     
-# Override the engine to use django-tenants backend
-db_config['ENGINE'] = 'django_tenants.postgresql_backend'
+# # Override the engine to use django-tenants backend
+# db_config['ENGINE'] = 'django_tenants.postgresql_backend'
 
-# Update the DATABASES configuration
-DATABASES['default'] = db_config
-
-
+# # Update the DATABASES configuration
+# DATABASES['default'] = db_config
 
 
 
 
-DATABASES_URL = os.getenv("DATABASES_URL") 
+
+
+# DATABASES_URL = os.getenv("DATABASES_URL") 
   
-if DATABASES_URL is not None: 
-    DATABASES = {"default": DATABASES_URL} 
-else: 
-    # Default to sqlite for simplicity in development 
-    DATABASES = { 
-        "default": { 
-            "ENGINE": "django_tenants.postgresql_backend", 
-            "NAME": "SocamaintAppDB", 
-        } 
-    } 
+# if DATABASES_URL is not None: 
+#     DATABASES = {"default": DATABASES_URL} 
+# else: 
+#     # Default to sqlite for simplicity in development 
+#     DATABASES = { 
+#         "default": { 
+#             "ENGINE": "django_tenants.postgresql_backend", 
+#             "NAME": "SocamaintAppDB", 
+#         } 
+#     } 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',
-#         'NAME': 'SocamaintAppDB',
-#         'USER': 'postgres',
-#         'HOST': 'localhost',
-#         'PASSWORD': 'Repentance',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'SocamaintAppDB',
+        'USER': 'postgres',
+        'HOST': 'localhost',
+        'PASSWORD': 'Repentance',
+        'PORT': '5432',
+    }
+}
 
 
 # DATABASES = {
