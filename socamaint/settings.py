@@ -86,7 +86,7 @@ TENANT_DOMAIN_MODEL = "Client.Domain"
 PUBLIC_SCHEMA_NAME = 'public'
 SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
 
-DATABASE_ENGINE = 'django_tenants.postgresql_backend'
+
 
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
@@ -137,9 +137,19 @@ WSGI_APPLICATION = 'socamaint.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+DATABASES = {}
+DATABASE_ENGINE = 'django_tenants.postgresql_backend'
 
+db_config = dj_database_url.config(
+        conn_max_age=600, 
+        ssl_require=True
+    )
+    
+# Override the engine to use django-tenants backend
+db_config['ENGINE'] = 'django_tenants.postgresql_backend'
 
-
+# Update the DATABASES configuration
+DATABASES['default'] = db_config
 
 
 
