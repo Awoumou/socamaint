@@ -174,10 +174,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
         'NAME': 'SocamaintAppDB',
-        'USER': 'postgres',
-        'HOST': 'localhost',
-        'PASSWORD': 'Repentance',
-        'PORT': '5432',
+        # 'USER': 'postgres',
+        # 'HOST': 'localhost',
+        # 'PASSWORD': 'Repentance',
+        # 'PORT': '5432',
     }
 }
 
