@@ -15,6 +15,17 @@ import os
 from decouple import config
 import dj_database_url
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'SocamaintAppDB',
+        'USER': 'postgres',
+        'HOST': 'localhost',
+        'PASSWORD': 'Repentance',
+        'PORT': '5432',
+    }
+}
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -86,6 +97,7 @@ CORS_ALLOW_CREDENTIALS=True
 
 
 MIDDLEWARE = [
+    "tenant_schemas.middleware.TenantMiddleware",
     'django_tenants.middleware.main.TenantMainMiddleware',
     'middleware.ClientMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -211,7 +223,14 @@ STATIC_URL = 'static/'
 STATIC_ROOT=BASE_DIR/"staticfiles"
 STATICFILES_DIRS=[]
 
-
+STORAGES = {
+    "default": {
+        "BACKEND": "tenant_schemas.storage.TenantFileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 
 # Email
