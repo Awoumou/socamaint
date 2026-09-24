@@ -15,16 +15,16 @@ import os
 from decouple import config
 import dj_database_url
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'SocamaintAppDB',
-        'USER': 'postgres',
-        'HOST': 'localhost',
-        'PASSWORD': 'Repentance',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': 'SocamaintAppDB',
+#         'USER': 'postgres',
+#         'HOST': 'localhost',
+#         'PASSWORD': 'Repentance',
+#         'PORT': '5432',
+#     }
+# }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -169,11 +169,23 @@ WSGI_APPLICATION = 'socamaint.wsgi.application'
 #     'ENGINE': 'django.db.backends.postgresql',
 # }
 
+# DATABASES = {
+#     'default': dj_database_url.config(default= config("DATABASES_URL"))
+# }
+
+db_config = dj_database_url.config(
+    conn_max_age=600, 
+    ssl_require=True
+)
+    
+# Override the engine to use django-tenants backend
+db_config['ENGINE'] = 'django_tenants.postgresql_backend'
+
+# Update the DATABASES configuration
+# DATABASES['default'] = db_config
 DATABASES = {
-    'default': dj_database_url.config(default= config("DATABASES_URL"))
+    'default': db_config
 }
-
-
 
 
 # Password validation
