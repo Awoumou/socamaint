@@ -75,6 +75,8 @@ TENANT_DOMAIN_MODEL = "Client.Domain"
 PUBLIC_SCHEMA_NAME = 'public'
 SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
 
+DATABASE_ENGINE = 'django_tenants.postgresql_backend'
+
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
 )
@@ -156,13 +158,10 @@ WSGI_APPLICATION = 'socamaint.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default= config(
-            "DATABASE_URL",
-            default='django_tenants.postgresql_backend',
-            ) 
-    )
+    'default': dj_database_url.config(default= config("DATABASES_URL"))
 }
+
+
 
 
 # Password validation
