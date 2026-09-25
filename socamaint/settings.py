@@ -45,10 +45,9 @@ DEBUG = True
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default=os.environ.get('DATABASES_URL'),
         conn_max_age=600,
-    ),
-    'ENGINE' : 'django_tenants.postgresql_backend'
+    )
 }
 DATABASES['default']['ENGINE'] = 'django_tenants.postgresql_backend'
 
