@@ -40,7 +40,18 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+
+
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+    )
+}
+DATABASES['default']['ENGINE'] = 'django_tenants.postgresql_backend'
+
+DATABASE_ROUTERS = ('django_tenants.routers.TenantSyncRouter',)
 
 
 # Application definition
@@ -88,16 +99,14 @@ SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
 
 
 
-DATABASE_ROUTERS = (
-    'django_tenants.routers.TenantSyncRouter',
-)
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS=True
 
 
 MIDDLEWARE = [
-    "tenant_schemas.middleware.TenantMiddleware",
+    # "tenant_schemas.middleware.TenantMiddleware",
     'django_tenants.middleware.main.TenantMainMiddleware',
     'middleware.ClientMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -110,6 +119,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+ALLOWED_HOSTS = ['*']
 
 ROOT_URLCONF = 'socamaint.urls'
 
@@ -170,16 +181,16 @@ WSGI_APPLICATION = 'socamaint.wsgi.application'
 #     } 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'SocamaintAppDB',
-        # 'USER': 'postgres',
-        # 'HOST': 'localhost',
-        # 'PASSWORD': 'Repentance',
-        # 'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',
+#         'NAME': 'SocamaintAppDB',
+#         'USER': 'postgres',
+#         'HOST': 'localhost',
+#         'PASSWORD': 'Repentance',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # DATABASES = {
